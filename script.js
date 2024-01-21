@@ -332,6 +332,25 @@ ctx.bezierCurveTo(
 );
 }
 
+// Function to adjust font size based on window size
+function adjustFontSize() {
+    if (window.innerWidth <= 600) {
+        return 20; // Set the font size for smaller screens
+    } else {
+        return 30; // Set the font size for larger screens
+    }
+}
+
+function setCanvasSize() {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    w = c.width;
+    h = c.height;
+    hw = w / 2;
+    hh = h / 2;
+}
+
+
 function anim() {
 window.requestAnimationFrame(anim);
 
@@ -352,9 +371,20 @@ if (done) {
   // Animation is complete, display "Thank You"
   ctx.fillStyle = '#fff';
   ctx.font = '20px Verdana';
-  ctx.fillText('Hope your birthday loops\n run smoothly and that you don"t break out of the for loop too soon ;)', hw - ctx.measureText('Hope your birthday loops\n run smoothly and that you don"t break out of the for loop too soon ;)').width / 2, hh);
+  ctx.fillText('Hope your birthday loops run smoothly and that you don"t break out of the for loop too soon ;)', hw - ctx.measureText('Hope your birthday loops run smoothly and that you don"t break out of the for loop too soon ;)').width / 2, hh);
 }
 }
+
+
+
+// Add an event listener for window resize to handle responsive changes
+window.addEventListener('resize', function () {
+    setCanvasSize();
+    anim(); // Call anim after resizing
+});
+
+
+
 
 for (var i = 0; i < opts.strings.length; ++i) {
 for (var j = 0; j < opts.strings[i].length; ++j) {
@@ -378,6 +408,12 @@ window.addEventListener( 'resize', function(){
 })
 
 
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     var popupButton = document.getElementById("fahim");
     var audioElement = document.getElementById("Tanav");
@@ -388,6 +424,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Play the audio
         audioElement.play();
-        anim();
+
+        // Start animation when the audio starts playing
+        audioElement.addEventListener("play", function() {
+            anim(); // Call your animation function
+            console.log("Audio started playing. Animation has begun.");
+        });
     });
 });
+
+// Add a media query to adjust styles for smaller screens
+var mediaQuery = window.matchMedia("(max-width: 600px)");
+
+function handleTabletChange(e) {
+    // Check if the media query matches
+    if (e.matches) {
+        // Apply styles for smaller screens
+        adjustStylesForMobile();
+    } else {
+        // Apply styles for larger screens
+        adjustStylesForDesktop();
+    }
+}
+
+// Initial check of the media query
+handleTabletChange(mediaQuery);
+
+// Attach the event listener to respond to changes in the media query
+mediaQuery.addListener(handleTabletChange);
+
+// Function to adjust styles for smaller screens
+function adjustStylesForMobile() {
+    // Modify styles to make content larger on smaller screens
+    opts.charSize = 20;
+    opts.charSpacing = 25;
+    opts.lineHeight = 30;
+    // Add more adjustments as needed
+}
+
+// Function to adjust styles for larger screens
+function adjustStylesForDesktop() {
+    // Reset styles to default values for larger screens
+    opts.charSize = 30;
+    opts.charSpacing = 35;
+    opts.lineHeight = 40;
+    // Add more adjustments as needed
+}
