@@ -352,7 +352,7 @@ if (done) {
   // Animation is complete, display "Thank You"
   ctx.fillStyle = '#fff';
   ctx.font = '20px Verdana';
-  ctx.fillText('Hope your birthday loops run smoothly and that you don"t break out of the for loop too soon ;)', hw - ctx.measureText('Hope your birthday loops run smoothly and that you don"t break out of the for loop too soon ;)').width / 2, hh);
+  ctx.fillText('Hope your birthday loops\n run smoothly and that you don"t break out of the for loop too soon ;)', hw - ctx.measureText('Hope your birthday loops\n run smoothly and that you don"t break out of the for loop too soon ;)').width / 2, hh);
 }
 }
 
